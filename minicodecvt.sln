@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minicodecvt", "minicodecvt\minicodecvt.vcxproj", "{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCpp", "TestCpp\TestCpp.vcxproj", "{53DA3F02-ED68-405B-AEA1-21615B752C05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E9D1DC79-4E86-420A-B28E-BA6970FC2F45} = {E9D1DC79-4E86-420A-B28E-BA6970FC2F45}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}.Debug|Win32.Build.0 = Debug|Win32
+		{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}.Release|Win32.ActiveCfg = Release|Win32
+		{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}.Release|Win32.Build.0 = Release|Win32
+		{53DA3F02-ED68-405B-AEA1-21615B752C05}.Debug|Win32.ActiveCfg = Debug|Win32
+		{53DA3F02-ED68-405B-AEA1-21615B752C05}.Debug|Win32.Build.0 = Debug|Win32
+		{53DA3F02-ED68-405B-AEA1-21615B752C05}.Release|Win32.ActiveCfg = Release|Win32
+		{53DA3F02-ED68-405B-AEA1-21615B752C05}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
