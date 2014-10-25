@@ -23,6 +23,6 @@ int main()
 	auto utf32str2 = Decode<Decoder::BIG5>(big5.c_str());
 	// UCS4->UTF16
 	auto utf16str2 = Encode<Encoder::UTF16, wchar_t>(utf32str2.begin(), utf32str2.end());
-
+	
 	return 0;
 }

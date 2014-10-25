@@ -237,6 +237,53 @@ namespace minicodecvt
 	}
 
 	/// @brief     转换到另一种编码
+	/// @param[in] nullTerminatedString 以0结尾的字节流
+	/// @return    转换输出的字符串
+	template<typename decoder_t, typename encoder_t, typename char_t = char>
+	std::basic_string<char_t> Convert(const char* nullTerminatedString)
+	{
+		decoder_t decoder;
+		encoder_t encoder;
+
+		std::basic_string<char_t> ret;
+		char32_t ucs4;
+		bool de_finished = true;
+		uint8_t* buf;
+		size_t size = 0;
+		bool en_finished = true;
+
+		while (*nullTerminatedString != 0)
+		{
+			if (decoder(*nullTerminatedString, ucs4))
+			{
+				de_finished = true;
+				if (encoder(ucs4, buf, size))
+				{
+					en_finished = true;
+
+					if (buf)
+					{
+						if (size % sizeof(char_t) != 0)
+							throw Exception::DecodeError("output character type is not match with encoder.");
+						ret.append(reinterpret_cast<char_t*>(buf), size / sizeof(char_t));
+					}
+				}
+				else
+					en_finished = false;
+			}
+			else
+				de_finished = false;
+
+			++nullTerminatedString;
+		}
+
+		if (!(de_finished && en_finished))
+			throw Exception::DecodeError("not all bytes is decoded or encoded.");
+
+		return std::move(ret);
+	}
+
+	/// @brief     转换到另一种编码
 	/// @param[in] begin  开始迭代器
 	/// @param[in] end    结束迭代器
 	/// @return    转换输出的字符串

@@ -85,6 +85,112 @@ bool Decoder::UTF8::operator() (uint8_t input, char32_t& output)
 		return false;
 }
 
+/* UTF16LE 解码器实现 */
+Decoder::UTF16LE::UTF16LE()
+	: m_iState(0), m_tempChar(0), m_leadChar(0)
+{}
+
+Decoder::UTF16LE::UTF16LE(const UTF16LE& org)
+	: m_iState(org.m_iState), m_tempChar(org.m_tempChar), m_leadChar(org.m_leadChar)
+{}
+
+bool Decoder::UTF16LE::operator() (uint8_t input, char32_t& output)
+{
+	// 状态机
+	switch (m_iState)
+	{
+	case 0:
+		m_tempChar = input;
+		m_iState = 1;
+		return false;
+	case 1:
+		m_tempChar |= (input << 8);
+		// 检查是否为代理位
+		if (m_tempChar >= 0xD800u && m_tempChar < 0xDC00)
+		{
+			m_leadChar = m_tempChar - 0xD800u;
+			m_iState = 2;
+			return false;
+		}
+		else
+		{
+			output = static_cast<char32_t>(m_tempChar);
+			m_iState = 0;
+			return true;
+		}
+	case 2:
+		m_tempChar = input;
+		m_iState = 3;
+		return false;
+	case 3:
+		m_tempChar |= (input << 8);
+		// 组合并输出
+		if (m_tempChar >= 0xDC00u && m_tempChar < 0xE000)
+		{
+			output = static_cast<char32_t>((m_leadChar << 16) | (m_tempChar - 0xDC00u));
+			m_iState = 0;
+			return false;
+		}
+		else
+			throw UnicodeEncodingError("invalid trailer character.");
+	default:
+		throw UnicodeEncodingError("internal error.");
+	}
+}
+
+/* UTF16BE 解码器实现 */
+Decoder::UTF16BE::UTF16BE()
+	: m_iState(0), m_tempChar(0), m_leadChar(0)
+{}
+
+Decoder::UTF16BE::UTF16BE(const UTF16BE& org)
+	: m_iState(org.m_iState), m_tempChar(org.m_tempChar), m_leadChar(org.m_leadChar)
+{}
+
+bool Decoder::UTF16BE::operator() (uint8_t input, char32_t& output)
+{
+	// 状态机
+	switch (m_iState)
+	{
+	case 0:
+		m_tempChar = input << 8;
+		m_iState = 1;
+		return false;
+	case 1:
+		m_tempChar |= input;
+		// 检查是否为代理位
+		if (m_tempChar >= 0xD800u && m_tempChar < 0xDC00)
+		{
+			m_leadChar = m_tempChar - 0xD800u;
+			m_iState = 2;
+			return false;
+		}
+		else
+		{
+			output = static_cast<char32_t>(m_tempChar);
+			m_iState = 0;
+			return true;
+		}
+	case 2:
+		m_tempChar = input << 8;
+		m_iState = 3;
+		return false;
+	case 3:
+		m_tempChar |= input;
+		// 组合并输出
+		if (m_tempChar >= 0xDC00u && m_tempChar < 0xE000)
+		{
+			output = static_cast<char32_t>((m_leadChar << 16) | (m_tempChar - 0xDC00u));
+			m_iState = 0;
+			return false;
+		}
+		else
+			throw UnicodeEncodingError("invalid trailer character.");
+	default:
+		throw UnicodeEncodingError("internal error.");
+	}
+}
+
 /* UTF16 编码器实现 */
 Encoder::UTF16::UTF16() {}
 
