@@ -24,6 +24,22 @@ namespace minicodecvt
 			DecodeError(const char* cDesc)
 				: m_cDesc(cDesc) {}
 		};
+
+		/// @brief ±‡¬Î“Ï≥£
+		class EncodeError :
+			public std::exception
+		{
+		private:
+			const char* m_cDesc;
+		public:
+			const char* what() const
+			{
+				return m_cDesc;
+			}
+		public:
+			EncodeError(const char* cDesc)
+				: m_cDesc(cDesc) {}
+		};
 	}
 
 	/// @brief     Ω‚¬Î
@@ -181,7 +197,7 @@ namespace minicodecvt
 				if (buf)
 				{
 					if (size % sizeof(outchar_t) != 0)
-						throw Exception::DecodeError("output character type is not match with encoder.");
+						throw Exception::EncodeError("output character type is not match with encoder.");
 					ret.append(reinterpret_cast<outchar_t*>(buf), size / sizeof(outchar_t));
 				}
 			}
@@ -192,7 +208,7 @@ namespace minicodecvt
 		}
 
 		if (!finished)
-			throw Exception::DecodeError("not all bytes is encoded.");
+			throw Exception::EncodeError("not all bytes is encoded.");
 
 		return std::move(ret);
 	}
@@ -220,7 +236,7 @@ namespace minicodecvt
 				if (buf)
 				{
 					if (size % sizeof(outchar_t) != 0)
-						throw Exception::DecodeError("output character type is not match with encoder.");
+						throw Exception::EncodeError("output character type is not match with encoder.");
 					ret.append(reinterpret_cast<outchar_t*>(buf), size / sizeof(outchar_t));
 				}
 			}
@@ -231,7 +247,7 @@ namespace minicodecvt
 		}
 
 		if (!finished)
-			throw Exception::DecodeError("not all bytes is encoded.");
+			throw Exception::EncodeError("not all bytes is encoded.");
 
 		return std::move(ret);
 	}
@@ -264,7 +280,7 @@ namespace minicodecvt
 					if (buf)
 					{
 						if (size % sizeof(char_t) != 0)
-							throw Exception::DecodeError("output character type is not match with encoder.");
+							throw Exception::EncodeError("output character type is not match with encoder.");
 						ret.append(reinterpret_cast<char_t*>(buf), size / sizeof(char_t));
 					}
 				}
@@ -277,9 +293,11 @@ namespace minicodecvt
 			++nullTerminatedString;
 		}
 
-		if (!(de_finished && en_finished))
-			throw Exception::DecodeError("not all bytes is decoded or encoded.");
-
+		if (!de_finished)
+			throw Exception::DecodeError("not all bytes is decoded.");
+		if (!en_finished)
+			throw Exception::EncodeError("not all bytes is encoded.");
+		
 		return std::move(ret);
 	}
 
@@ -312,7 +330,7 @@ namespace minicodecvt
 					if (buf)
 					{
 						if (size % sizeof(char_t) != 0)
-							throw Exception::DecodeError("output character type is not match with encoder.");
+							throw Exception::EncodeError("output character type is not match with encoder.");
 						ret.append(reinterpret_cast<char_t*>(buf), size / sizeof(char_t));
 					}
 				}
@@ -325,8 +343,10 @@ namespace minicodecvt
 			++begin;
 		}
 
-		if (!(de_finished && en_finished))
-			throw Exception::DecodeError("not all bytes is decoded or encoded.");
+		if (!de_finished)
+			throw Exception::DecodeError("not all bytes is decoded.");
+		if (!en_finished)
+			throw Exception::EncodeError("not all bytes is encoded.");
 
 		return std::move(ret);
 	}
