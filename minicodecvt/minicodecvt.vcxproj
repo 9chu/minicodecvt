@@ -11,20 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\big5.h" />
-    <ClInclude Include="include\coverter.h" />
-    <ClInclude Include="include\cp932.h" />
-    <ClInclude Include="include\cp936.h" />
-    <ClInclude Include="include\cp950.h" />
-    <ClInclude Include="include\gbk.h" />
-    <ClInclude Include="include\shift_jis.h" />
-    <ClInclude Include="include\unicode.h" />
+    <ClCompile Include="cp932.cpp" />
+    <ClCompile Include="cp936.cpp" />
+    <ClCompile Include="cp950.cpp" />
+    <ClCompile Include="unicode.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cp932.cpp" />
-    <ClCompile Include="src\cp936.cpp" />
-    <ClCompile Include="src\cp950.cpp" />
-    <ClCompile Include="src\unicode.cpp" />
+    <ClInclude Include="big5.h" />
+    <ClInclude Include="coverter.h" />
+    <ClInclude Include="cp932.h" />
+    <ClInclude Include="cp936.h" />
+    <ClInclude Include="cp950.h" />
+    <ClInclude Include="gbk.h" />
+    <ClInclude Include="shift_jis.h" />
+    <ClInclude Include="unicode.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E9D1DC79-4E86-420A-B28E-BA6970FC2F45}</ProjectGuid>

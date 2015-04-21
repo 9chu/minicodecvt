@@ -15,43 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\cp936.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\unicode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\coverter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cp932.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gbk.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\shift_jis.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cp950.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\big5.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="cp932.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cp936.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cp950.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="unicode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cp936.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\unicode.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cp932.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cp950.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="cp936.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cp950.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gbk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="shift_jis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="unicode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="big5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="coverter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cp932.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
