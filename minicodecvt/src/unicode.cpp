@@ -135,7 +135,7 @@ bool Decoder::UTF16::operator() (uint8_t input, char32_t& output)
 			{
 				output = static_cast<char32_t>((m_leadChar << 16) | (tempChar - 0xDC00u));
 				m_iState = 0;
-				return false;
+				return true;
 			}
 			else
 				throw UnicodeEncodingError("invalid trailer character.");
@@ -189,7 +189,7 @@ bool Decoder::UTF16LE::operator() (uint8_t input, char32_t& output)
 		{
 			output = static_cast<char32_t>((m_leadChar << 16) | (m_tempChar - 0xDC00u));
 			m_iState = 0;
-			return false;
+			return true;
 		}
 		else
 			throw UnicodeEncodingError("invalid trailer character.");
@@ -242,7 +242,7 @@ bool Decoder::UTF16BE::operator() (uint8_t input, char32_t& output)
 		{
 			output = static_cast<char32_t>((m_leadChar << 16) | (m_tempChar - 0xDC00u));
 			m_iState = 0;
-			return false;
+			return true;
 		}
 		else
 			throw UnicodeEncodingError("invalid trailer character.");
