@@ -276,15 +276,20 @@ bool Encoder::UTF8::operator() (char32_t input, uint8_t*& output, size_t& size)
 	else
 		throw UnicodeEncodingError("invalid utf32 character.");
 
-	// 填充字节
-	for (int i = c; i > 0; --i)
+	if (c == 0)
+		m_cBuf[0] = uinput;
+	else
 	{
-		m_cBuf[i] = (uinput & 0x3Fu) | 0x80u;
-		uinput >>= 6;
-	}
+		// 填充字节
+		for (int i = c; i > 0; --i)
+		{
+			m_cBuf[i] = (uinput & 0x3Fu) | 0x80u;
+			uinput >>= 6;
+		}
 
-	// 填充首字节
-	m_cBuf[0] = (0xFEu << (6 - c)) | uinput;
+		// 填充首字
+		m_cBuf[0] = (0xFEu << (6 - c)) | uinput;
+	}
 
 	// 写出
 	output = m_cBuf;
