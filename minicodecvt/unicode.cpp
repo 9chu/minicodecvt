@@ -108,7 +108,8 @@ bool Decoder::UTF16::operator() (uint8_t input, char32_t& output)
 		return false;
 	case 1:
 		m_cBuf[1] = input;
-		m_leadChar = *reinterpret_cast<char16_t*>(m_cBuf);
+		*(uint8_t*)&m_leadChar = m_cBuf[0];
+		*((uint8_t*)&m_leadChar + 1) = m_cBuf[1];
 		// 检查是否为代理位
 		if (m_leadChar >= 0xD800u && m_leadChar < 0xDC00)
 		{
@@ -129,7 +130,9 @@ bool Decoder::UTF16::operator() (uint8_t input, char32_t& output)
 	case 3:
 		m_cBuf[1] = input;
 		{
-			char16_t tempChar = *reinterpret_cast<char16_t*>(m_cBuf);
+			char16_t tempChar;
+			*(uint8_t*)&tempChar = m_cBuf[0];
+			*((uint8_t*)&tempChar + 1) = m_cBuf[1];
 			// 组合并输出
 			if (tempChar >= 0xDC00u && tempChar < 0xE000)
 			{
