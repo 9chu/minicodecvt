@@ -2,8 +2,7 @@
 // Copyright 2014, CHU.
 // ´´½¨ÓÚ 2014/10/24
 #pragma once
-#include <cstdint>
-#include <string>
+#include "minicodecvt.h"
 
 namespace minicodecvt
 {
@@ -16,7 +15,7 @@ namespace minicodecvt
 		private:
 			const char* m_cDesc;
 		public:
-			const char* what() const
+			const char* what() const ynothrow
 			{
 				return m_cDesc;
 			}
@@ -32,7 +31,7 @@ namespace minicodecvt
 		private:
 			const char* m_cDesc;
 		public:
-			const char* what() const
+			const char* what() const ynothrow
 			{
 				return m_cDesc;
 			}
